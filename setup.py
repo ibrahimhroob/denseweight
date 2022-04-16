@@ -23,6 +23,6 @@ setuptools.setup(
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     include_package_data=True,
-    install_requires=["numpy>=1.20.0", "KDEpy", "scikit-learn"],
+    install_requires=["numpy>=1.19.0", "KDEpy", "scikit-learn"],
     python_requires=">=3.6",
 )

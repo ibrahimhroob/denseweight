@@ -6,7 +6,6 @@ Module for DenseWeight.
 import functools
 from typing import Optional, Union
 import numpy as np
-from numpy.typing import ArrayLike
 from sklearn.preprocessing import MinMaxScaler
 from KDEpy import FFTKDE
 from denseweight.utils import bisection
@@ -40,7 +39,7 @@ class DenseWeight:
         self.bandwidth = bandwidth
         self.eps = eps
 
-    def fit(self, y: ArrayLike, grid_points=4096) -> np.ndarray:
+    def fit(self, y, grid_points=4096) -> np.ndarray:
 
         if self.bandwidth is None:
             silverman_bandwidth = 1.06 * np.std(y) * np.power(len(y), (-1.0 / 5.0))
@@ -64,7 +63,7 @@ class DenseWeight:
         self.weights = w_star / self.mean_w_star
         return self.weights
 
-    def get_density(self, y: ArrayLike) -> np.ndarray:
+    def get_density(self, y) -> np.ndarray:
         try:
             idx = bisection(self.x, y)
         except AttributeError:
@@ -85,12 +84,12 @@ class DenseWeight:
         dens = self.get_density(y)
         return np.maximum(1 - self.alpha * dens, self.eps) / self.mean_w_star
 
-    def eval(self, y: ArrayLike) -> np.ndarray:
+    def eval(self, y) -> np.ndarray:
         np_y = np.array(y)
         y_l = np_y.flatten().tolist()
 
         rels = np.array(list(map(self.eval_single, y_l)))
         return rels
 
-    def __call__(self, y: ArrayLike) -> np.ndarray:
+    def __call__(self, y) -> np.ndarray:
         return self.eval(y)
