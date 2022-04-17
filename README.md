@@ -14,6 +14,15 @@ DenseWeight is available at [PyPI](https://pypi.org/project/denseweight/) and ca
 pip install denseweight
 ```
 
+or
+
+```
+git clone https://github.com/ibrahimhroob/denseweight.git
+cd denseweight
+pip install -e .
+```
+
+
 ## Usage
 
 ```
